@@ -1,58 +1,76 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, { useState } from "react";
+import styled from "styled-components";
 
-function App() {
+const App = () => {
+  const [newTask, setNewTask] = useState("");
+  const [tasks, setTasks] = useState([]);
+
+  console.log(tasks);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <Container>
+      <Wrapper>
+        <STitle>Todoリスト</STitle>
+        <SForm>
+          <SInput onChange={(e) => setNewTask(e.target.value)} />
+          <SButton onClick={() => setTasks([...tasks, newTask])}>決定</SButton>
+        </SForm>
+        <SUl>
+          {tasks.map((task) => (
+            <li>{task}</li>
+          ))}
+        </SUl>
+      </Wrapper>
+    </Container>
   );
-}
+};
+
+const Container = styled.div`
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-color: #33ccff;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  height: 50%;
+  border-radius: 5%;
+  background-color: white;
+`;
+
+const STitle = styled.h2`
+  text-align: center;
+`;
+
+const SForm = styled.div`
+  text-align: center;
+`;
+
+const SInput = styled.input`
+  width: 70%;
+  height: 20px;
+`;
+
+const SButton = styled.button`
+  background-color: #33ccff;
+  color: white;
+  border-radius: 15%;
+  border: none;
+  height: 30px;
+  width: 60px;
+`;
+
+//list
+
+const SUl = styled.ul`
+  overflow: hidden;
+  overflow-y: auto;
+  width: 90%;
+  height: 250px;
+`;
 
 export default App;

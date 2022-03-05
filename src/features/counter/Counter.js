@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   decrement,
   increment,
@@ -7,15 +7,25 @@ import {
   incrementAsync,
   incrementIfOdd,
   selectCount,
-} from './counterSlice';
-import styles from './Counter.module.css';
+  setResult,
+} from "./counterSlice";
+import styles from "./Counter.module.css";
 
 export function Counter() {
   const count = useSelector(selectCount);
   const dispatch = useDispatch();
-  const [incrementAmount, setIncrementAmount] = useState('2');
+  const [incrementAmount, setIncrementAmount] = useState("2");
 
   const incrementValue = Number(incrementAmount) || 0;
+
+  const [value, setValue] = useState(0);
+
+  const handleClick = () => {
+    console.log(value);
+    const result = value * count;
+    dispatch(setResult(result));
+    //setResultというactionがあって、そのアクションの引数のresultがpayload
+  };
 
   return (
     <div>
@@ -27,7 +37,9 @@ export function Counter() {
         >
           -
         </button>
+
         <span className={styles.value}>{count}</span>
+
         <button
           className={styles.button}
           aria-label="Increment value"
@@ -35,6 +47,13 @@ export function Counter() {
         >
           +
         </button>
+        <input
+          type="number"
+          name=""
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
+        <button onClick={handleClick}>ボタン</button>
       </div>
       <div className={styles.row}>
         <input
